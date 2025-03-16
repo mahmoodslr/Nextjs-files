@@ -1,0 +1,39 @@
+{
+  "articles": [
+    {
+      "id": "1",
+      "title": "titlle 1",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. quod id adipisci magni consectetur! Velit nisi provident."
+    },
+    {
+      "id": "2",
+      "title": "titlle 2",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. quod id adipisci magni consectetur! Velit nisi provident."
+    },
+    {
+      "id": "3",
+      "title": "titlle 3",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. quod id adipisci magni consectetur! Velit nisi provident."
+    },
+    {
+      "id": "4",
+      "title": "titlle 4",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. quod id adipisci magni consectetur! Velit nisi provident."
+    },
+    {
+      "id": "5",
+      "title": "titlle 5",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. quod id adipisci magni consectetur! Velit nisi provident."
+    },
+    {
+      "id": "944",
+      "title": "title 6",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. quod id adipisci magni consectetur! Velit nisi provident."
+    },
+    {
+      "id": "382",
+      "title": "title 7",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. quod id adipisci magni consectetur! Velit nisi provident."
+    }
+  ]
+}
