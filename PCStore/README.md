@@ -35,17 +35,6 @@ The project includes user authentication, product browsing, a shopping cart, and
 - Delete users
 - Protection against deleting the admin account
 
-## Tech Stack
-
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- Prisma ORM
-- SQLite
-- bcryptjs
-- next-themes
-
 ## Project Structure
 
 ```text
@@ -116,31 +105,36 @@ PCStore/
 │       ├── prisma.ts
 │       └── admin.ts
 │
-├── .env
-├── dev.db
+├── .gitignore
 ├── prisma.config.ts
 ├── package.json
 └── README.md
+```
+---
 
-
-Database
+## Database
 
 PCStore uses Prisma ORM with SQLite.
+
 The database contains three main models:
 
-User
+### User
 
 Stores registered users.
 
+```text
 id
 name
 email
 password
 createdAt
-Product
+```
+
+### Product
 
 Stores products available in the store.
 
+```text
 id
 name
 description
@@ -148,237 +142,367 @@ category
 price
 image
 createdAt
-CartItem
+```
+
+### CartItem
 
 Connects users with products in their shopping carts.
 
+```text
 id
 quantity
 userId
 productId
+```
 
-A unique constraint is used for userId and productId so that a user cannot have multiple separate cart records for the same product.
+A unique constraint is used for `userId` and `productId` so that a user cannot have multiple separate cart records for the same product.
 
-Authentication
+---
+
+## Authentication
 
 PCStore uses a simple cookie-based authentication system.
 
 When a user logs in:
 
-The email is searched in the database.
-The entered password is compared with the stored bcrypt hash.
-A userId HTTP-only cookie is created.
-The cookie is used to identify the authenticated user.
+1. The email is searched in the database.
+2. The entered password is compared with the stored bcrypt hash.
+3. A `userId` HTTP-only cookie is created.
+4. The cookie is used to identify the authenticated user.
 
-The application uses the authenticated user to provide access to features such as the shopping cart.
+The authenticated user can then access features such as the shopping cart.
 
-Admin Panel
+---
+
+## Admin Panel
 
 The admin panel is available at:
 
+```text
 /admin
+```
 
 The admin area is protected and can only be accessed by the configured administrator account.
 
-Current development admin account:
-
-Name: Admin
-Email: admin@pcstore.com
-Password: 123456
-
-For a real production application, these credentials should be changed and managed securely.
-
 The admin dashboard provides:
 
-Product statistics
-User statistics
-Cart item statistics
-Product management
-User management
-API Routes
-Authentication
+* Product statistics
+* User statistics
+* Cart item statistics
+* Product management
+* User management
+
+### Admin Features
+
+Administrators can:
+
+* Add products
+* Edit products
+* Delete products
+* View registered users
+* Delete users
+* View dashboard statistics
+
+The application also prevents the administrator account from being deleted through the admin panel.
+
+---
+
+## API Routes
+
+### Authentication
+
+```text
 POST /api/auth/login
 POST /api/auth/register
 GET  /api/auth/me
 POST /api/auth/logout
-Products
+```
+
+### Products
+
+```text
 GET /api/products
-Cart
+```
+
+### Cart
+
+```text
 GET    /api/cart
 POST   /api/cart
 PATCH  /api/cart
 DELETE /api/cart
-Admin Statistics
+```
+
+### Admin Statistics
+
+```text
 GET /api/admin/stats
-Admin Products
+```
+
+### Admin Products
+
+```text
 GET    /api/admin/products
 POST   /api/admin/products
 PATCH  /api/admin/products
 DELETE /api/admin/products
-Admin Users
+```
+
+### Admin Users
+
+```text
 GET    /api/admin/users
 DELETE /api/admin/users
-Product Management
+```
+
+---
+
+## Product Management
 
 Administrators can manage products directly from the admin dashboard.
 
 Each product contains:
 
-Name
-Description
-Category
-Price
-Image
+* Name
+* Description
+* Category
+* Price
+* Image
 
 The following operations are supported:
 
-Add
-Edit
-Delete
+* Add
+* Edit
+* Delete
 
 Product images are currently stored in:
 
+```text
 public/products/
+```
 
-and referenced using paths such as:
+Example:
 
+```text
 /products/mouse.jpg
-Shopping Cart
+```
+
+---
+
+## Shopping Cart
 
 Authenticated users can add products to their shopping cart.
 
 The cart supports:
 
-Adding products
-Increasing quantity
-Decreasing quantity
-Removing products
-Calculating the total price
+* Adding products
+* Increasing quantity
+* Decreasing quantity
+* Removing products
+* Calculating the total price
 
-Cart data is stored in the SQLite database through the CartItem model.
+Cart data is stored in the SQLite database through the `CartItem` model.
 
-Responsive Design
+---
 
-The interface is designed to work on different screen sizes, including:
+## Responsive Design
 
-Desktop
-Tablet
-Mobile
+The interface is designed to work on different screen sizes:
+
+* Desktop
+* Tablet
+* Mobile
 
 Tailwind CSS is used for responsive layouts and styling.
 
-Dark Mode
+---
 
-PCStore supports light and dark themes using next-themes.
+## Dark Mode
+
+PCStore supports light and dark themes using `next-themes`.
 
 Users can switch between themes from the website interface.
 
-Getting Started
-1. Clone the repository
-git clone YOUR_REPOSITORY_URL
+---
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mahmoodslr/Nextjs-files.git
+cd Nextjs-files/PCStore
+```
 
 Move into the project directory:
 
+```bash
 cd PCStore
-2. Install dependencies
+```
+
+### 2. Install dependencies
+
+```bash
 npm install
-3. Configure environment variables
+```
 
-Create a .env file in the root directory:
+### 3. Configure environment variables
 
+Create a `.env` file in the root directory:
+
+```env
 DATABASE_URL="file:./dev.db"
-4. Run Prisma migrations
+ADMIN_EMAIL="admin@pcstore.com"
+```
+
+Do not commit the `.env` file to GitHub.
+
+### 4. Run Prisma migrations
+
+```bash
 npx prisma migrate dev
-5. Generate Prisma Client
+```
+
+### 5. Generate Prisma Client
+
+```bash
 npx prisma generate
-6. Start the development server
+```
+
+### 6. Start the development server
+
+```bash
 npm run dev
+```
 
 The application will be available at:
 
+```text
 http://localhost:3000
-Prisma Studio
+```
+
+---
+
+## Prisma Studio
 
 Prisma Studio can be used to view and manage the database.
 
 Run:
 
+```bash
 npx prisma studio
+```
 
-Prisma Studio allows you to inspect and manage:
+Prisma Studio allows you to inspect:
 
-Users
-Products
-Cart Items
-Useful Prisma Commands
+* Users
+* Products
+* Cart Items
+
+---
+
+## Useful Prisma Commands
 
 Check migration status:
 
+```bash
 npx prisma migrate status
+```
 
 Create a new migration:
 
+```bash
 npx prisma migrate dev
+```
 
 Generate Prisma Client:
 
+```bash
 npx prisma generate
+```
 
 Open Prisma Studio:
 
+```bash
 npx prisma studio
-Main Pages
-Route	Description
-/	Home page and products
-/login	Login and registration
-/cart	Shopping cart
-/admin	Admin dashboard
-Admin Login
+```
+
+---
+
+## Main Pages
+
+| Route    | Description            |
+| -------- | ---------------------- |
+| `/`      | Home page and products |
+| `/login` | Login and registration |
+| `/cart`  | Shopping cart          |
+| `/admin` | Admin dashboard        |
+
+---
+
+## Admin Login
 
 Open:
 
+```text
 http://localhost:3000/login
+```
 
-Use the development admin account:
+Use the administrator credentials configured for the local development environment.
 
-Email: admin@pcstore.com
-Password: 123456
+After successful login, open:
 
-After successful login, the admin can access:
-
+```text
 http://localhost:3000/admin
-Development Commands
+```
+
+For a real production application, administrator credentials should be changed and managed securely.
+
+---
+
+## Development Commands
 
 Start the development server:
 
+```bash
 npm run dev
+```
 
 Build the application:
 
+```bash
 npm run build
+```
 
 Start the production server:
 
+```bash
 npm start
+```
 
 Run ESLint:
 
+```bash
 npm run lint
-
-The project demonstrates the use of:
-
-Next.js
-React
-TypeScript
-Tailwind CSS
-Prisma ORM
-SQLite
-REST API routes
-Authentication
-Cookies
-Password hashing
-Database relationships
-CRUD operations
-Shopping cart functionality
-Admin dashboard
 ```
+
+---
+
+This project demonstrates the use of:
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* Prisma ORM
+* SQLite
+* REST API routes
+* Authentication
+* HTTP-only cookies
+* Password hashing
+* Database relationships
+* CRUD operations
+* Shopping cart functionality
+* Admin dashboard
+* Responsive UI
+* Light and dark mode
