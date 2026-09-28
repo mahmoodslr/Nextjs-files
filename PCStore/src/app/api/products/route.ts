@@ -1,0 +1,29 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+
+export async function GET() {
+  try {
+    const products = await prisma.product.findMany({
+      orderBy: {
+        id: "asc",
+      },
+    });
+
+    return NextResponse.json({
+      products,
+    });
+  } catch (error) {
+    console.error("GET_PRODUCTS_ERROR:", error);
+
+    return NextResponse.json(
+      {
+        message: "Something went wrong.",
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+}
+
+// api/products
